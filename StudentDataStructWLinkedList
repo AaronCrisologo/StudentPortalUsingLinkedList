@@ -1,0 +1,95 @@
+#include <iostream>
+using namespace std;
+
+// Node structure for the linked list
+struct Node{
+	string name;
+	int srcode;
+	string subj1;
+	string subj2;
+	string advname;
+	string csched;
+	Node *next;
+};
+
+int main(){
+	int ssrcode;
+	int size;
+	char prompt;
+	bool found;
+	
+	//head pointer for the linked list
+	Node *head = NULL;
+	
+	//ask user the size of the list
+	cout<<"Enter the size of the list: "; cin>>size;
+	cout<<endl;
+	
+	//input student information while creating a new node
+	for(int i=0;i<size;i++){
+		Node *new_node = new Node;
+		cout<<"[Student No. "<<i+1<<"]"<<endl;
+		cout<<"Enter name of student: ";cin>>new_node->name;
+		cout<<"Enter SR-CODE of student: ";cin>>new_node->srcode;
+		cout<<"Enter enrolled subject #1: ";cin>>new_node->subj1;
+		cout<<"Enter enrolled subject #2: ";cin>>new_node->subj2;
+		cout<<"Enter advisor's name: ";cin>>new_node->advname;
+		cout<<"Enter time of class: ";cin>>new_node->csched;
+		new_node->next = head;
+		head = new_node;
+		cout<<endl;
+	}
+	cout<<endl<<endl;
+	
+	//print all student information starting from the head
+	Node *temp = head;
+	for(int i=0;i<size;i++){
+		cout<<"Student No. "<<i+1<<" Information: "<<endl;
+		cout<<"Name: "<<temp->name<<endl;
+		cout<<"SR-CODE: "<<temp->srcode<<endl;
+		cout<<"Enrolled Subject #1: "<<temp->subj1<<endl;
+		cout<<"Enrolled Subject #2: "<<temp->subj2<<endl;
+		cout<<"Name of Class Advisor: "<<temp->advname<<endl;
+		cout<<"Class Schedule: "<<temp->csched<<endl;
+		temp = temp->next;
+		cout<<endl;	
+	}
+	
+	//search for student via sr-code starting from the head
+	while(true){
+		found = false;
+		cout<<"Enter student SR-CODE to display information: "; cin>>ssrcode;
+		temp = head;
+		while (temp != NULL) {
+			if (temp->srcode == ssrcode) {
+				found = true;
+				break;
+			}
+			temp = temp->next;
+	 	}
+	 	
+	 	//if student is found
+	 	if(found) {
+	 		cout<<"Student Information Found!\n"<<endl;
+			cout<<"Name: "<<temp->name<<endl;
+			cout<<"SR-CODE: "<<temp->srcode<<endl;
+			cout<<"Enrolled Subject #1: "<<temp->subj1<<endl;
+			cout<<"Enrolled Subject #2: "<<temp->subj2<<endl;
+			cout<<"Name of Class Advisor: "<<temp->advname<<endl;
+			cout<<"Class Schedule: "<<temp->csched<<endl;
+			cout<<endl;
+	 	}
+	 	
+	 	//if student is not found
+	 	else {
+	 		cout<<"Student Information not found.\n"<<endl;
+	 	}
+	 	
+	 	//ask user if they want to do another search
+		cout<<"Do you want seach another student information[Y][N]? "; cin>>prompt;
+		cout<<endl;
+		if(prompt == 'n'||prompt == 'N'){
+			break;
+		}
+	}
+}
